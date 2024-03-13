@@ -1,22 +1,30 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
+
 import * as bcrypt from 'bcrypt';
-const testPass = '$2b$10$B5U./0UYKB1B9ZYitfEc1OWzKhqb/0XqMk4B0UWQksP8MLfgCiMxS'; // hashed "test1"
 
 @Injectable()
 export class AuthService {
-  async login(username: string, password: string): Promise<string> {
-    // Hämta det hashade lösenordet från databasen baserat på användarnamnet
-    // Test lösenordet är "test1"
-    const hashedPasswordFromDatabase = testPass;
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
-    // Verifiera lösenordet
-    const match = await bcrypt.compare(password, hashedPasswordFromDatabase);
+  async login(username: string, password: string): Promise<string> {
+    const user = await this.usersRepository.findOne({ username });
+
+    if (!user) {
+      console.log('User not found');
+      return 'User not found';
+    }
+
+    const match = await bcrypt.compare(password, user.password);
     if (match) {
-      // Lösenordet matchar
       console.log('Login successful!');
-      return 'Login successful!'; // Returnera ett svar
+      return 'Login successful!';
     } else {
-      // Lösenordet matchar inte
       console.log('Invalid password!');
       return 'Invalid password!';
     }
