@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthService } from './auth.service';
+import { LoginAuthService } from './loginauth.service';
 import { LoginController } from './login.controller';
+import { SignUpController } from './signup.controller';
+import { SignUpService } from './signup.service';
 
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 
 @Module({
   imports: [
@@ -18,8 +20,9 @@ import { User } from './user.entity';
       entities: [User],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([User]), // Lägg till denna rad
   ],
-  controllers: [LoginController],
-  providers: [AuthService],
+  controllers: [LoginController, SignUpController],
+  providers: [LoginAuthService, SignUpService],
 })
 export class AppModule {}

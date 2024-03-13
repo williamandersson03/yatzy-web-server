@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class AuthService {
+export class LoginAuthService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
 
   async login(username: string, password: string): Promise<string> {
-    const user = await this.usersRepository.findOne({ username });
+    const user = await this.usersRepository.findOne({ where: { username } });
 
     if (!user) {
       console.log('User not found');

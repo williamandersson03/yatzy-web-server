@@ -1,9 +1,9 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { LoginAuthService } from './loginauth.service';
 
 @Controller('api')
 export class LoginController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: LoginAuthService) {}
 
   @Post('login')
   login(@Body() body: any) {
