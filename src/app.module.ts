@@ -4,6 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthService } from './auth.service';
 import { LoginController } from './login.controller';
 
+console.log(process.env.DB_USERNAME);
+console.log(process.env.DB_PASSWORD);
+console.log(process.env.DB_DBNAME);
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
