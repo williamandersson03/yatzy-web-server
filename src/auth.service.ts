@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-const testPass = "$2b$10$B5U./0UYKB1B9ZYitfEc1OWzKhqb/0XqMk4B0UWQksP8MLfgCiMxS"; // hashed "test1"
+const testPass = '$2b$10$B5U./0UYKB1B9ZYitfEc1OWzKhqb/0XqMk4B0UWQksP8MLfgCiMxS'; // hashed "test1"
 
 @Injectable()
 export class AuthService {
