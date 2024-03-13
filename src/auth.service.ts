@@ -6,7 +6,7 @@ const testPass = "$2b$10$B5U./0UYKB1B9ZYitfEc1OWzKhqb/0XqMk4B0UWQksP8MLfgCiMxS";
 export class AuthService {
   async login(username: string, password: string): Promise<string> {
     // Hämta det hashade lösenordet från databasen baserat på användarnamnet
-    // Här använder vi en hårdkodad sträng för demonstration
+    // Test lösenordet är "test1"
     const hashedPasswordFromDatabase = testPass;
 
     // Verifiera lösenordet
