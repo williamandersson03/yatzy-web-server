@@ -13,7 +13,7 @@ export class LoginAuthService {
   ) {}
 
   async login(username: string, password: string): Promise<string> {
-    const user = await this.usersRepository.findOne({ where: { username } });
+    const user = await this.usersRepository.createQueryBuilder("user").where("LOWER(user.username) = :username", { username: username.toLowerCase() }).getOne();
 
     if (!user) {
       console.log('User not found');
