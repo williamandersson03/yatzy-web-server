@@ -4,16 +4,15 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 
 import * as bcrypt from 'bcrypt';
-import { sign } from 'jsonwebtoken';
 
 @Injectable()
-export class LoginAuthService {
+export class DeleteMeService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
 
-  async login(username: string, password: string): Promise<any> {
+  async deleteme(username: string, password: string): Promise<string> {
     const user = await this.usersRepository.createQueryBuilder("user").where("LOWER(user.username) = :username", { username: username.toLowerCase() }).getOne();
 
     if (!user) {
@@ -23,11 +22,12 @@ export class LoginAuthService {
 
     const match = await bcrypt.compare(password, user.password);
     if (match) {
-      const token = sign({ userId: user.uuid }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      console.log('Login successful!');
-      return { message: 'Login successful!', token: token };
-    }
-    else {
+      // Delete the user with matching UUID
+      await this.usersRepository.delete(user.uuid);
+
+      console.log('Delete successful!');
+      return 'Delete successful!';
+    } else {
       console.log('Invalid password!');
       return 'Invalid password!';
     }
