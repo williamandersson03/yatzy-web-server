@@ -23,7 +23,7 @@ export class LoginAuthService {
 
     const match = await bcrypt.compare(password, user.password);
     if (match) {
-      const token = sign({ userId: user.uuid }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      const token = sign({ userId: user.uuid }, process.env.JWT_SECRET, { expiresIn: '2h' });
       console.log('Login successful!');
       return { message: 'Login successful!', token: token };
     }
