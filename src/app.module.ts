@@ -7,6 +7,8 @@ import { SignUpController } from './signup.controller';
 import { SignUpService } from './signup.service';
 import { DeleteMeController } from './deleteme.controller';
 import { DeleteMeService } from './deleteme.service';
+import { VerifyTokenController } from './verifytoken.controller';
+import { VerifyTokenService } from './verifytoken.service';
 
 import { User } from './entities/user.entity';
 
@@ -24,7 +26,7 @@ import { User } from './entities/user.entity';
     }),
     TypeOrmModule.forFeature([User]), // Lägg till denna rad
   ],
-  controllers: [LoginController, SignUpController, DeleteMeController],
-  providers: [LoginAuthService, SignUpService, DeleteMeService],
+  controllers: [LoginController, SignUpController, DeleteMeController, VerifyTokenController],
+  providers: [LoginAuthService, SignUpService, DeleteMeService, VerifyTokenService],
 })
 export class AppModule {}

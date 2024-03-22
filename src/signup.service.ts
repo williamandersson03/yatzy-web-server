@@ -26,8 +26,7 @@ export class SignUpService {
         else {
           if(username.toLowerCase() != "pontus")
           {
-            const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            const hashedPassword = await bcrypt.hash(password, 10);
             const uuid = uuidv4();
             await this.usersRepository.insert({ uuid: uuid, username, password: hashedPassword, email });
             console.log('Signup successful!');
